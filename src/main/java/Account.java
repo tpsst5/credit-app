@@ -2,6 +2,9 @@ import java.util.Random;
 import java.lang.StringBuilder;
 import java.util.Scanner;
 
+/**
+ * Represents a single credit card account.
+ */
 public class Account {
 
     // Fields
@@ -10,18 +13,26 @@ public class Account {
     private Random random = new Random();
     private long balance;
 
-    // Constructor
+    /**
+     * Constructor to create an Account instance.
+     */
     public Account() {
         setCardNum();
         setPin();
         this.balance = 0;
     }
 
-    // Getter for cardNum
+    /**
+     * Getter for cardNum.
+     * @return long - cardNum
+     */
     public long getCardNum() {
         return this.cardNum;
     }
 
+    /**
+     * Setter for cardNum.
+     */
     public void setCardNum() {
         StringBuilder acctNum = new StringBuilder();
         // BIN
@@ -58,11 +69,17 @@ public class Account {
         this.cardNum = Long.parseLong(String.valueOf(acctNum));
     }
 
-    // Getter for pin
+    /**
+     * Getter for pin number.
+     * @return String - pin
+     */
     public String getPin() {
         return this.pin;
     }
 
+    /**
+     * Setter for pin.
+     */
     public void setPin() {
         StringBuilder newPin = new StringBuilder();
 
@@ -73,14 +90,27 @@ public class Account {
         this.pin = String.valueOf(newPin);
     }
 
+    /**
+     * Getter for balance amount.
+     * @return long - balance
+     */
     public long getBalance() {
         return this.balance;
     }
 
+    /**
+     * Setter for balance(Currently not used).
+     * @param balanceInput - long value of balanceInput
+     * @return long - balance
+     */
     public long setBalance(long balanceInput) {
         return this.balance = balanceInput;
     }
 
+    /**
+     * Represents the user interface once logged into a card account.
+     * @return boolean - value quit(Set to true once log out requested)
+     */
     public boolean userInterface() {
         Scanner scan = new Scanner(System.in);
         int input = -1;

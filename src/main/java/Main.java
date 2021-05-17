@@ -1,7 +1,18 @@
 import java.util.Scanner;
 
+/**
+ * Credit Card App - Generates credit cards using the Luhn algorith and stores them in a SQLite database created
+ * using command line arguments at start up.
+ *
+ * @author Tim Shea
+ * @version 5/16/21
+ */
 public class Main {
 
+    /**
+     * Main driver method for the application.
+     * @param args - '-fileName, SQL db name'
+     */
     public static void main(String[] args) {
 
         // Fields
