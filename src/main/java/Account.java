@@ -1,16 +1,17 @@
 import java.util.Random;
-import java.lang.StringBuilder;
-import java.util.Scanner;
 
 /**
- * Represents a single credit card account.
+ * Account - Represents a single credit card account.
+ *
+ * @author Tim Shea
+ * @version 5/18/21
  */
 public class Account {
 
     // Fields
     private long cardNum;
     private String pin;
-    private Random random = new Random();
+    private final Random random = new Random();
     private long balance;
 
     /**
@@ -38,7 +39,7 @@ public class Account {
         // BIN
         acctNum.append("400000");
         int luhnTotal = 0;
-        int tempNum = 0;
+        int tempNum;
         int checksum = 0;
 
         // Insert account number without checksum(last digit)
@@ -96,49 +97,6 @@ public class Account {
      */
     public long getBalance() {
         return this.balance;
-    }
-
-    /**
-     * Setter for balance(Currently not used).
-     * @param balanceInput - long value of balanceInput
-     * @return long - balance
-     */
-    public long setBalance(long balanceInput) {
-        return this.balance = balanceInput;
-    }
-
-    /**
-     * Represents the user interface once logged into a card account.
-     * @return boolean - value quit(Set to true once log out requested)
-     */
-    public boolean userInterface() {
-        Scanner scan = new Scanner(System.in);
-        int input = -1;
-        boolean quit = false;
-
-        while (true) {
-            System.out.print("1. Balance\n" +
-                    "2. Log out\n" +
-                    "0. Exit\n" +
-                    ">");
-            input = scan.nextInt();
-            System.out.println();
-
-            if (input == 1) {
-                System.out.println("Balance: " + this.getBalance());
-                System.out.println();
-            } else if (input == 2) {
-                System.out.println("You have successfully logged out!");
-                System.out.println();
-                break;
-            } else if (input == 0) {
-                quit = true;
-                break;
-            }
-
-        }
-
-        return quit;
     }
 
 }

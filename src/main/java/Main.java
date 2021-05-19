@@ -1,28 +1,27 @@
 import java.util.Scanner;
 
 /**
- * Credit Card App - Generates credit cards using the Luhn algorith and stores them in a SQLite database created
+ * Credit Card App - Generates credit cards using the Luhn algorithm and stores them in a SQLite database created
  * using command line arguments at start up.
  *
  * @author Tim Shea
- * @version 5/16/21
+ * @version 5/18/21
  */
 public class Main {
 
     /**
      * Main driver method for the application.
-     * @param args - '-fileName, SQL db name'
+     * @param args - '-fileName, SQL-databaseName'
      */
     public static void main(String[] args) {
 
         // Fields
         Scanner scan = new Scanner(System.in);
-        AccountList acctList = new AccountList();
-        boolean checkQuit = false;
-        int input = -1;
+        boolean quit;
+        int input;
         String dbFileName = args[1];
 
-        // Create database if needed
+        // Create the database if needed
         DatabaseActions.createDatabase(dbFileName);
 
         // Create table
@@ -40,9 +39,9 @@ public class Main {
             // Check user input selection
             if (input == 1) {
                 Account account = new Account();
-                acctList.addAccount(account);
+
                 DatabaseActions.insert(dbFileName, String.valueOf(account.getCardNum()),
-                                account.getPin(), account.getBalance());
+                        account.getPin(), account.getBalance());
                 System.out.println("Your card has been created\n" +
                         "Your card number:\n" +
                         account.getCardNum() + "\n" +
@@ -60,15 +59,22 @@ public class Main {
                 String pin = scan.next();
                 System.out.println();
 
-                Account userAcct = acctList.getAccount(cardNum, pin);
+                boolean hasAccount = DatabaseActions.getCard(dbFileName, String.valueOf(cardNum), pin);
 
-                if (userAcct != null) {
-                    checkQuit = userAcct.userInterface();
+                if (hasAccount) {
+                    System.out.println("You have successfully logged in!");
+                    System.out.println();
+                    AccountUI accountUI = new AccountUI();
+                    quit = accountUI.startAccountUI(dbFileName, String.valueOf(cardNum), pin);
+
+                    if (quit) {
+                        input = 0;
+                    }
+
+                } else {
+                    System.out.println("Wrong card number or PIN!");
                 }
 
-                if (checkQuit) {
-                    input = 0;
-                }
             }
 
         } while (input != 0);
